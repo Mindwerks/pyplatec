@@ -61,8 +61,8 @@ static PyObject * platec_get_heightmap(PyObject *self, PyObject *args)
     if (!PyArg_ParseTuple(args, "l", &litho))
         return NULL; 
     float *hm = platec_api_get_heightmap(litho);
-
-    PyObject* res =  makelist(hm,512*512);
+/* Increased resolution from 512x512 to 2048x2048 */
+    PyObject* res =  makelist(hm,2048*2048);
     Py_INCREF(res);
     return res;
 }
