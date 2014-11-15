@@ -1,6 +1,9 @@
 #include <Python.h>
 #include "platecapi.hpp"
 
+#if PY_MAJOR_VERSION >= 3
+#define IS_PY3
+#endif
 
 static PyObject * platec_create(PyObject *self, PyObject *args)
 {
@@ -93,8 +96,52 @@ static PyMethodDef PlatecMethods[] = {
     {NULL, NULL, 0, NULL} /* Sentinel */
 };
 
+static struct PyModuleDef moduledef = {
+        PyModuleDef_HEAD_INIT,
+        "pyplatec",
+        NULL,
+        -1,
+        PlatecMethods,
+        NULL,
+        NULL,
+        NULL,
+        NULL
+};
+
+struct module_state {
+    PyObject *error;
+};
+
+#if PY_MAJOR_VERSION >= 3
+#define GETSTATE(m) ((struct module_state*)PyModule_GetState(m))
+#define INITERROR return NULL
+#else
+#define GETSTATE(m) (&_state)
+static struct module_state _state;
+#define INITERROR return
+#endif
+
 PyMODINIT_FUNC
 initplatec(void)
 {
-    (void) Py_InitModule("platec", PlatecMethods);
+    #if PY_MAJOR_VERSION >= 3
+        PyObject *module = PyModule_Create(&moduledef);
+    #else
+        PyObject *module = Py_InitModule("platec", PlatecMethods);
+    #endif
+
+    if (module == NULL)
+        INITERROR;
+    
+    struct module_state *st = GETSTATE(module);
+
+    st->error = PyErr_NewException("myextension.Error", NULL, NULL);
+    if (st->error == NULL) {
+        Py_DECREF(module);
+        INITERROR;
+    }
+
+    #if PY_MAJOR_VERSION >= 3
+        return module;
+    #endif        
 }
