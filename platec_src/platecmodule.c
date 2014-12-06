@@ -121,13 +121,16 @@ static struct module_state _state;
 #define INITERROR return
 #endif
 
-PyMODINIT_FUNC
-initplatec(void)
+#if PY_MAJOR_VERSION >= 3
+PyObject * PyInit_platec(void)
+#else
+PyMODINIT_FUNC initplatec(void)
+#endif
 {
     #if PY_MAJOR_VERSION >= 3
         PyObject *module = PyModule_Create(&moduledef);
     #else
-        PyObject *module = Py_InitModule("platec", PlatecMethods);
+        PyObject *module = Py_InitModule("pyplatec", PlatecMethods);
     #endif
 
     if (module == NULL)
