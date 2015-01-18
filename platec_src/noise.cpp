@@ -1,3 +1,4 @@
+#include <stdint.h>
 #include "noise.hpp"
 #include "sqrdmd.hpp"
 #include "simplexnoise.hpp"
@@ -78,7 +79,9 @@ try {
     std::string msg = "Problem during lithosphere::createNoise, tmpDim+=";
     // avoid Mingw32 bug (https://gcc.gnu.org/bugzilla/show_bug.cgi?id=52015)
     #ifndef __MINGW32__
+    #ifndef _MSC_VER
     msg = msg + to_string(tmpDim.getWidth()) + "x" + to_string(tmpDim.getHeight()) + " ";
+    #endif
     #endif
     msg = msg + e.what();
     throw runtime_error(msg.c_str());

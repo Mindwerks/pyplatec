@@ -27,7 +27,7 @@ static PyObject * platec_create(PyObject *self, PyObject *args)
             folding_ratio, aggr_overlap_abs, aggr_overlap_rel,
             cycle_count, num_plates);
 
-    long pointer = (long)litho;
+    long long pointer = (long long)litho;
     return Py_BuildValue("l", pointer);
 }
 
