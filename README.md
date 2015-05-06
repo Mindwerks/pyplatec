@@ -1,3 +1,13 @@
+Attention!
+==========
+
+_This project was moved in [plate-tectonics](https://github.com/Mindwerks/plate-tectonics)_.
+
+A brief history:
+* we originally created pyplatec as the python bindings of platec
+* we since then forked platec as plate-tectonics, because the project was not maintained. Pyplatec became the python bindings of plate-tectonics instead of platec
+* we decided it makes more sense to have a single project containing the library and the python bindings. That project is plate-tectonics](https://github.com/Mindwerks/plate-tectonics). This project (PyPlatec) is kept only as a reference for existing users.
+
 PyPlatec
 ========
 
