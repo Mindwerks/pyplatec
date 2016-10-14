@@ -27,11 +27,22 @@ Requirements
 ============
 
 Supported versions:
-* Python 2.6
+* Python 2.6 (currently not supported on AppVeyor)
 * Python 2.7
-* Python 3.2
+* Python 3.2 (currently not supported on AppVeyor)
 * Python 3.3
 * Python 3.4
+
+Clone
+=====
+
+This project contains git submodules. After cloning it do:
+
+```
+git submodule update --init --recursive
+cd plate-tectonics
+git checkout v1.3.1
+```
 
 Compile
 =======

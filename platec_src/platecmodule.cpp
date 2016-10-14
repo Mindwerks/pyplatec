@@ -5,6 +5,15 @@
 #include <cmath>
 #include <Python.h>
 
+#define __STDC_CONSTANT_MACROS
+#if _WIN32 || _WIN64
+#include <Windows.h>
+typedef UINT32 uint32_t;
+typedef INT32 int32_t;
+#else
+#include <stdint.h>
+#endif
+
 static PyObject * platec_create(PyObject *self, PyObject *args)
 {
     unsigned int seed;
@@ -57,9 +66,9 @@ PyObject *makelist(float array[], size_t size) {
     return l;
 }
 
-PyObject *makelist_int(size_t array[], size_t size) {
+PyObject *makelist_int(uint32_t array[], uint32_t size) {
     PyObject *l = PyList_New(size);
-    for (size_t i = 0; i != size; ++i) {
+    for (uint32_t i = 0; i != size; ++i) {
         PyList_SET_ITEM(l, i, Py_BuildValue("i",array[i]));
     }
     return l;
@@ -87,7 +96,7 @@ static PyObject * platec_get_platesmap(PyObject *self, PyObject *args)
     void *litho;
     if (!PyArg_ParseTuple(args, "l", &litho))
         return NULL; 
-    size_t *hm = platec_api_get_platesmap(litho);
+    uint32_t *hm = platec_api_get_platesmap(litho);
 
     size_t width = lithosphere_getMapWidth(litho);
     size_t height = lithosphere_getMapHeight(litho);
