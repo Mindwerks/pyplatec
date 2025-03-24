@@ -5,6 +5,7 @@ python:
   - "3.2"
   - "3.3"
   - "3.4"
+  - "3.6"
 
 before_install:
     - echo "yes" | sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y

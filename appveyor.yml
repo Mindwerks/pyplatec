@@ -50,6 +50,12 @@ environment:
       WINDOWS_SDK_VERSION: "v7.1"
       DISTRIBUTIONS: "bdist_wheel"
 
+    - PYTHON: "C:\\Python34-x64"
+      PYTHON_VERSION: "3.6.15"
+      PYTHON_ARCH: "64"
+      WINDOWS_SDK_VERSION: "v7.1"
+      DISTRIBUTIONS: "bdist_wheel"
+
 init:
   - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
 
