@@ -1,5 +1,11 @@
-name: Using
-on: [push, pull_request]
+name: Workflow
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   my_python_job:
@@ -16,6 +22,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt update; sudo apt install build-essential libssl-dev zlib1g-dev \
+          libbz2-dev libreadline-dev libsqlite3-dev curl git \
+          libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
+
       - name: Install python version
         uses: gabrielfalcao/pyenv-action@v18
         with:
