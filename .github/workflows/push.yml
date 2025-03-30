@@ -35,7 +35,13 @@ jobs:
         uses: gabrielfalcao/pyenv-action@v18
         with:
           default: "${{ matrix.python }}"
-          command: pip install -U pip  # upgrade pip after installing python
+          command: pip install -U pip wheel setuptools twine # upgrade pip after installing python
 
       - name: Build and install
         run: python setup.py clean build sdist install
+
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-build-${{ matrix.python }}
+          path: dist/
