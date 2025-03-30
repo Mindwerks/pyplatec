@@ -42,4 +42,7 @@ jobs:
 
       - name: Build and install
         run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
           python setup.py clean build sdist install
