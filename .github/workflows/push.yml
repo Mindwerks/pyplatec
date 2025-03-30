@@ -13,16 +13,18 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["2.7", "3.2", "3.3", "3.4", "3.6"]
+        python-version: ["2.7", "3.4", "3.6"]
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+      - name: Set up pyenv
+        uses: gabrielfalcao/pyenv-action@v18
         with:
-          python-version: ${{ matrix.python-version }}
+          default: ${{ matrix.python-version }}
+          versions: ${{ matrix.python-version }}
+          command: pip install -U pip  # Upgrade pip after installing Python
 
       - name: Install dependencies
         run: |
