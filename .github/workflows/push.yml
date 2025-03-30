@@ -25,9 +25,8 @@ jobs:
       - name: Set up pyenv
         uses: gabrielfalcao/pyenv-action@v18
         with:
-          default: ${{ matrix.python-version }}
-          versions: ${{ matrix.python-version }}
-          command: pip install -U pip  # Upgrade pip after installing Python
+          default: "${{ matrix.python }}"
+          command: pip install -U pip setuptools wheel  # upgrade pip after installing python
 
 #      - name: Install dependencies
 #        run: |
@@ -42,7 +41,7 @@ jobs:
 
       - name: Build and install
         run: |
-          python -m venv venv
-          source venv/bin/activate
-          python -m pip install --upgrade pip setuptools wheel
+#          python -m venv venv
+#          source venv/bin/activate
+#          python -m pip install --upgrade pip setuptools wheel
           python setup.py clean build sdist install
